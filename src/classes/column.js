@@ -8,6 +8,8 @@ class Column {
         this.representedAs = props.representedAs || null;
         this.component = props.component || null;
         this.interpolate = props.interpolate || false;
+        this.headerInterpolate = props.headerInterpolate || false;
+        this.headerComponent = props.headerComponent || false;
         this.sortable = this.isSortable(props);
         this.filterable = this.isFilterable(props);
     }
