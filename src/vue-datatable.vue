@@ -10,7 +10,6 @@
                     :column="head_column"
                     :processed_rows="processed_rows"
                     :rows="data"
-                    :rows-data="rowsData"
                     :settings="settings"
                     :direction="getSortDirectionForColumn(head_column)"
                     @change="setSortDirectionForColumn"
@@ -18,14 +17,13 @@
             </tr>
         </thead>
         <tbody>
-            <slot v-for="row in processed_rows" :row="row" :row-data="rowsData[row.id]">
+            <slot v-for="row in processed_rows" :row="row">
             <tr :class="getRowClasses(row)">
                 <datatable-cell
                   v-for="(column, j) in normalized_columns"
                   :key="j"
                   :column="column"
                   :row="row"
-                  :row-data="rowsData[row.id]"
                   ></datatable-cell>
             </tr>
             </slot>
