@@ -8,6 +8,8 @@
 					v-for="(head_column, i) in normalized_columns"
 					:key="i"
 					:column="head_column"
+					:processed_rows="processed_rows"
+					:rows="data"
 					:settings="settings"
 					:direction="getSortDirectionForColumn(head_column)"
 					@change="setSortDirectionForColumn"
