@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <slot v-for="row in processed_rows" :row="row">
+            <slot v-for="row in processed_rows" :row="row" @update="handleUpdate(entry, entryIndex, $event)">
             <tr :class="getRowClasses(row)">
                 <datatable-cell
                   v-for="(column, j) in normalized_columns"
@@ -94,6 +94,15 @@ export default {
         setSortDirectionForColumn(direction, column){
             this.sort_by = column;
             this.sort_dir = direction;
+        },
+        handleUpdate(entry, entryIndex, event) {
+          var newValue = event.target.value
+          console.log("entry")
+          console.log(entry)
+          console.log("entryIndex")
+          console.log(entryIndex)
+          console.log("event")
+          console.log(event)
         },
         processRows(value, mutation){
             console.log("value")
