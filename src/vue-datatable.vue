@@ -10,6 +10,7 @@
                     :column="head_column"
                     :processed_rows="processed_rows"
                     :rows="data"
+                    :select-rows="selectedRows"
                     :settings="settings"
                     :direction="getSortDirectionForColumn(head_column)"
                     @change="setSortDirectionForColumn"
@@ -17,13 +18,14 @@
             </tr>
         </thead>
         <tbody>
-            <slot v-for="row in processed_rows" :row="row" @update="handleUpdate(entry, entryIndex, $event)">
+            <slot v-for="row in processed_rows" :row="row" :select-rows="selectedRows">
             <tr :class="getRowClasses(row)">
                 <datatable-cell
                   v-for="(column, j) in normalized_columns"
                   :key="j"
                   :column="column"
                   :row="row"
+                  :select-rows="selectedRows"
                   ></datatable-cell>
             </tr>
             </slot>
@@ -51,6 +53,7 @@ export default {
             type: String,
             default: null
         },
+        selectedRows: [Object],
         rowClasses: {
             type: [String, Array, Object, Function],
             default: null
@@ -95,20 +98,7 @@ export default {
             this.sort_by = column;
             this.sort_dir = direction;
         },
-        handleUpdate(entry, entryIndex, event) {
-          var newValue = event.target.value
-          console.log("entry")
-          console.log(entry)
-          console.log("entryIndex")
-          console.log(entryIndex)
-          console.log("event")
-          console.log(event)
-        },
         processRows(value, mutation){
-            console.log("value")
-            console.log(value)
-            console.log("mutation")
-            console.log(mutation)
             if(typeof this.data === 'function'){
                 let params = {
                     filter: this.filterBy,
@@ -157,7 +147,6 @@ export default {
         },
         setRows(rows){
             this.processed_rows = rows;
-            this.$root.$emit('table.changed', this.name);
         },
         setTotalRowCount(value){
             this.total_rows = value;
