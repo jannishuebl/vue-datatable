@@ -144,6 +144,7 @@ export default {
 		},
 		setRows(rows){
 			this.processed_rows = rows;
+            this.$root.$emit('table.changed', this.name);
 		},
 		setTotalRowCount(value){
 			this.total_rows = value;
