@@ -7,6 +7,7 @@
             :is="column.headerComponent"
             :column="column"
             :rows="rows"
+            :selected-rows="selectedRows"
             :processed-rows="processed_rows">
         </component>
         <span v-else>{{ column.label  }}</span>
@@ -28,6 +29,7 @@ export default {
 		column: [Object, Array],
 		rows: [Object, Array, String, Function],
 		processed_rows: [Object, Array],
+        selectedRows: [Object],
 		settings: Object,
 		direction: {
 			type: String,

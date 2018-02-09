@@ -10,7 +10,7 @@
                     :column="head_column"
                     :processed_rows="processed_rows"
                     :rows="data"
-                    :select-rows="selectedRows"
+                    :selected-rows="selectedRows"
                     :settings="settings"
                     :direction="getSortDirectionForColumn(head_column)"
                     @change="setSortDirectionForColumn"
@@ -18,14 +18,14 @@
             </tr>
         </thead>
         <tbody>
-            <slot v-for="row in processed_rows" :row="row" :select-rows="selectedRows">
+            <slot v-for="row in processed_rows" :row="row" :selected-rows="selectedRows">
             <tr :class="getRowClasses(row)">
                 <datatable-cell
                   v-for="(column, j) in normalized_columns"
                   :key="j"
                   :column="column"
                   :row="row"
-                  :select-rows="selectedRows"
+                  :selected-rows="selectedRows"
                   ></datatable-cell>
             </tr>
             </slot>
