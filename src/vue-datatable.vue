@@ -50,7 +50,7 @@ export default {
         columns: [Object, Array],
         data: [Object, Array, String, Function],
         filterBy: {
-            type: String,
+            type: [String, Array],
             default: null
         },
         selectedRows: [Object],
@@ -150,6 +150,7 @@ export default {
         },
         setTotalRowCount(value){
             this.total_rows = value;
+            this.$emit('total_rows', {name: this.name, count: value });
         },
         getRowClasses(row){
             var row_classes = this.rowClasses;
