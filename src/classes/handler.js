@@ -10,11 +10,13 @@ class Handler {
             return data;
         }
 
+        if(!Array.isArray(filter)) {
+            filter = [filter];
+        }
 
-        let filter_parts = filter.split(/,/);
         return data.filter(function(row){
-            for(var j in filter_parts) {
-                let filter_strings = filter_parts[j].split(/\s/);
+            for(var j in filter) {
+                let filter_strings = filter[j].split(/\s/);
                 let matched = true;
                 for(var i in filter_strings){
                     if(!this.rowMatches(row, filter_strings[i], columns)){
