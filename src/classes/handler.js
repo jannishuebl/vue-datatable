@@ -10,16 +10,22 @@ class Handler {
             return data;
         }
 
-        let filter_strings = filter.split(/\s/);
 
+        let filter_parts = filter.split(/,/);
         return data.filter(function(row){
-			for(var i in filter_strings){
-				if(!this.rowMatches(row, filter_strings[i], columns)){
-					return false;
-				}
-			}
-
-			return true;
+            for(var j in filter_parts) {
+                let filter_strings = filter_parts[j].split(/\s/);
+                let matched = true;
+                for(var i in filter_strings){
+                    if(!this.rowMatches(row, filter_strings[i], columns)){
+                        matched = false;
+                    }
+                }
+                if(matched) {
+                    return true;
+                }
+            }
+            return false;
         }.bind(this));
     }
     rowMatches(row, filter_string, columns){
@@ -32,35 +38,35 @@ class Handler {
         return false;
     }
     handleSort(filtered_data, sort_column, sort_dir){
-		if(!sort_column || sort_dir === null){
-			return filtered_data;
-		}
+        if(!sort_column || sort_dir === null){
+            return filtered_data;
+        }
 
-		return filtered_data.sort(function(a, b){
-			var value_a = sort_column.getRepresentation(a);
-			var value_b = sort_column.getRepresentation(b);
+        return filtered_data.sort(function(a, b){
+            var value_a = sort_column.getRepresentation(a);
+            var value_b = sort_column.getRepresentation(b);
 
-			if(value_a == value_b){
-				return 0;
-			}
+            if(value_a == value_b){
+                return 0;
+            }
 
-			var sort_val = value_a > value_b ? 1 : -1;
+            var sort_val = value_a > value_b ? 1 : -1;
 
-			if(sort_dir === 'desc'){
-				sort_val *= -1;
-			}
+            if(sort_dir === 'desc'){
+                sort_val *= -1;
+            }
 
-			return sort_val;
-		});
+            return sort_val;
+        });
     }
     handlePaginate(sorted_data, page_count, page_number){
-		if(!page_count){
-			return sorted_data;
-		}
+        if(!page_count){
+            return sorted_data;
+        }
 
-		if(page_number < 1){
-			page_number = 1;
-		}
+        if(page_number < 1){
+            page_number = 1;
+        }
 
         let start_index = (page_number - 1) * page_count;
         let end_index = (page_number * page_count);
