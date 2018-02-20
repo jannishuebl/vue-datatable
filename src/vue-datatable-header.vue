@@ -2,7 +2,14 @@
 
 <template>
 	<th :style="{'text-align': column.align}">
-        <component v-if="column.headerComponent" :is="column.headerComponent" :column="column"></component>
+        <component
+            v-if="column.headerComponent"
+            :is="column.headerComponent"
+            :column="column"
+            :rows="rows"
+            :selected-rows="selectedRows"
+            :processed-rows="processed_rows">
+        </component>
         <span v-else>{{ column.label  }}</span>
 		<span
 			v-if="column.sortable"
@@ -20,6 +27,9 @@ export default {
 			event: 'change'
 		},
 		column: [Object, Array],
+		rows: [Object, Array, String, Function],
+		processed_rows: [Object, Array],
+        selectedRows: [Object],
 		settings: Object,
 		direction: {
 			type: String,
